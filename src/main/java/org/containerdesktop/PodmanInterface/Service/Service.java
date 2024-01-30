@@ -31,4 +31,5 @@ public interface Service<T> {
     void create(Config<T> config) throws IOException;
     void delete(String name);
     List<T> list();
+    T get(String name);
 }

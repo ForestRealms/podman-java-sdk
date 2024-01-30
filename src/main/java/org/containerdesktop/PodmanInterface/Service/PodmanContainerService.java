@@ -30,4 +30,9 @@ public class PodmanContainerService implements ContainerService {
     public List<Container> list()  {
         return null;
     }
+
+    @Override
+    public Container get(String name) {
+        return null;
+    }
 }
