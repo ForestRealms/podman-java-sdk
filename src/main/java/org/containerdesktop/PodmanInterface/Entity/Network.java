@@ -30,9 +30,15 @@ public interface Network {
     }
 
     enum Driver {
-        BRIDGE,
-        MACVLAN,
-        IPVLAN;
+        BRIDGE("bridge"),
+        MACVLAN("macvlan"),
+        IPVLAN("ipvlan");
+
+        private final String value;
+
+        Driver(String s) {
+            this.value = s;
+        }
 
         static Driver fromString(String s){
             return switch (s) {
@@ -41,6 +47,11 @@ public interface Network {
                 case "ipvlan" -> IPVLAN;
                 default -> throw new InvalidNetworkDriverException("invalidNetworkDriver", s);
             };
+        }
+
+        @Override
+        public String toString(){
+            return this.value;
         }
     }
 
