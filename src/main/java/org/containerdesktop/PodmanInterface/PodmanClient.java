@@ -16,6 +16,7 @@ public interface PodmanClient {
         private String socket;
         private String version;
         private String hostAddr = "localhost";
+        private boolean compat = true;
 
         public Builder socket(String socket){
             this.socket = socket;
@@ -31,12 +32,21 @@ public interface PodmanClient {
             this.hostAddr = addr;
             return this;
         }
+
+        public Builder compat(boolean enabled) {
+            this.compat = enabled;
+            return this;
+        }
         
 
 
         @Override
         public PodmanClient build() throws SocketException {
-            return new SimplePodmanClient(this.socket, "http://" + this.hostAddr + "/v" + this.version);
+            String libpod = "";
+            if (!compat) {
+                libpod = "/libpod";
+            }
+            return new SimplePodmanClient(this.socket, "http://" + this.hostAddr + "/v" + this.version + libpod);
         }
     }
 
