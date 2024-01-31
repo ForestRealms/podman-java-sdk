@@ -1,4 +1,4 @@
-package org.containerdesktop.PodmanInterface.Enum;
+package org.containerdesktop.PodmanInterface.Entity;
 
 public enum MessageKey {
     DUPLICATE_HOST_PATH("duplicateHostPathError"),

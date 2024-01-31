@@ -67,13 +67,10 @@ public class PodmanImageService implements ImageService {
 
     @Override
     public void pull(String fromImage, String tag) {
-        JSONObject r = new JSONObject();
-        r.put("fromImage", fromImage);
-        r.put("tag", tag);
         RequestBody requestBody = RequestBody.create(new JSONObject().toJSONString(), null);
         Request request = new Request.Builder()
                 .post(requestBody)
-                .url(baseURL + "/images/create?fromImage="+r.getString("fromImage")+"&tag="+r.getString("tag"))
+                .url(baseURL + "/images/create?fromImage="+fromImage+"&tag="+tag)
                 .build();
 
         ResponseBody responseBody;

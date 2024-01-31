@@ -1,7 +1,7 @@
 package org.containerdesktop.PodmanInterface.Configuration;
 
 import org.containerdesktop.PodmanInterface.Entity.Container;
-import org.containerdesktop.PodmanInterface.Enum.MessageKey;
+import org.containerdesktop.PodmanInterface.Entity.MessageKey;
 import org.containerdesktop.PodmanInterface.Exception.DuplicateEntryException;
 import org.containerdesktop.PodmanInterface.Exception.DuplicateVolumePathException;
 
