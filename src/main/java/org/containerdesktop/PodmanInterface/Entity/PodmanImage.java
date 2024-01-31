@@ -9,9 +9,9 @@ public record PodmanImage(String id,
                           List<String> repoTags,
                           List<String> repoDigests,
                           Date createdDate,
-                          int size,
-                          int virtualSize,
-                          int sharedSize,
+                          long size,
+                          long virtualSize,
+                          long sharedSize,
                           Map<String, String> labels,
                           int containerCount,
                           List<String> names,
@@ -44,17 +44,17 @@ public record PodmanImage(String id,
     }
 
     @Override
-    public int getSize() {
+    public long getSize() {
         return this.size;
     }
 
     @Override
-    public int getVirtualSize() {
+    public long getVirtualSize() {
         return this.virtualSize;
     }
 
     @Override
-    public int getSharedSize() {
+    public long getSharedSize() {
         return this.sharedSize;
     }
 

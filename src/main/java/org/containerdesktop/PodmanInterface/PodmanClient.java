@@ -1,6 +1,7 @@
 package org.containerdesktop.PodmanInterface;
 
 import org.containerdesktop.PodmanInterface.Service.ContainerService;
+import org.containerdesktop.PodmanInterface.Service.ImageService;
 import org.containerdesktop.PodmanInterface.Service.NetworkService;
 
 import java.net.SocketException;
@@ -9,6 +10,7 @@ public interface PodmanClient {
     NetworkService network();
 
     ContainerService container();
+    ImageService image();
 
     class Builder implements org.containerdesktop.PodmanInterface.Builder.Builder<PodmanClient> {
 

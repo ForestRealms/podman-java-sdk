@@ -1,9 +1,7 @@
 package org.containerdesktop.PodmanInterface;
 
 import okhttp3.OkHttpClient;
-import org.containerdesktop.PodmanInterface.Service.ContainerService;
-import org.containerdesktop.PodmanInterface.Service.NetworkService;
-import org.containerdesktop.PodmanInterface.Service.PodmanNetworkService;
+import org.containerdesktop.PodmanInterface.Service.*;
 import org.newsclub.net.unix.AFSocketFactory;
 import org.newsclub.net.unix.AFUNIXSocketAddress;
 
@@ -34,5 +32,10 @@ public class SimplePodmanClient implements PodmanClient{
     @Override
     public ContainerService container() {
         return null;
+    }
+
+    @Override
+    public ImageService image() {
+        return new PodmanImageService(this.client, this.baseURL);
     }
 }
