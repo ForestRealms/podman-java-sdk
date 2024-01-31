@@ -15,20 +15,8 @@ import java.util.List;
 
 public interface Service<T> {
 
-    default Response get(String socket, String path) throws IOException {
-        SocketAddress socketAddress = AFUNIXSocketAddress.of(new File(socket));
-        OkHttpClient client = new OkHttpClient.Builder()
-                .socketFactory(new AFSocketFactory.FixedAddressSocketFactory(socketAddress))
-                .callTimeout(Duration.ofMinutes(1))
-                .build();
-        Request request = new Request.Builder()
-                .get()
-                .url(path)
-                .build();
-        return client.newCall(request).execute();
-    }
 
-    void create(Config<T> config) throws IOException;
+    String create(Config<T> config) throws IOException;
     void delete(String name);
     List<T> list();
     T get(String name);

@@ -17,8 +17,8 @@ public class PodmanContainerService implements ContainerService {
 
 
     @Override
-    public void create(Config<Container> config) throws IOException {
-
+    public String create(Config<Container> config) {
+        return null;
     }
 
     @Override

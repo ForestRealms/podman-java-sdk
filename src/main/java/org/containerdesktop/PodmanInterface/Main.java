@@ -29,11 +29,14 @@ public class Main {
         PodmanClient client = new PodmanClient.Builder()
                 .socket("/run/podman/podman.sock")
                 .version("4.0.0")
+                .compat(true)
                 .build();
-        client.network().create(new DefaultNetworkConfigBuilder()
-                        .name("test")
-                .build());
-
+//        System.out.println(client.network().create(new DefaultNetworkConfigBuilder()
+//                .name("test")
+//                .driver(Network.Driver.BRIDGE)
+//                .build()));
+//        System.out.println(client.network().get("test"));
+        client.network().delete("test");
 
     }
 

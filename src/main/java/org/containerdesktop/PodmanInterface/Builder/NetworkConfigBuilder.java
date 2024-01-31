@@ -3,7 +3,7 @@ package org.containerdesktop.PodmanInterface.Builder;
 import org.containerdesktop.PodmanInterface.Configuration.NetworkConfig;
 import org.containerdesktop.PodmanInterface.Entity.Network;
 
-public interface NetworkConfigBuilder extends Buildable<NetworkConfig> {
+public interface NetworkConfigBuilder extends Builder<NetworkConfig> {
     NetworkConfigBuilder name(String name);
 
     NetworkConfigBuilder driver(Network.Driver driver);

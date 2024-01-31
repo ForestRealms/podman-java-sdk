@@ -1,6 +1,5 @@
 package org.containerdesktop.PodmanInterface;
 
-import org.containerdesktop.PodmanInterface.Builder.Buildable;
 import org.containerdesktop.PodmanInterface.Service.ContainerService;
 import org.containerdesktop.PodmanInterface.Service.NetworkService;
 
@@ -11,7 +10,7 @@ public interface PodmanClient {
 
     ContainerService container();
 
-    class Builder implements Buildable<PodmanClient> {
+    class Builder implements org.containerdesktop.PodmanInterface.Builder.Builder<PodmanClient> {
 
         private String socket;
         private String version;

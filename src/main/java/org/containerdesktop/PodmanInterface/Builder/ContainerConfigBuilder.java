@@ -2,7 +2,7 @@ package org.containerdesktop.PodmanInterface.Builder;
 
 import org.containerdesktop.PodmanInterface.Configuration.ContainerConfig;
 
-public interface ContainerConfigBuilder extends Buildable<ContainerConfig> {
+public interface ContainerConfigBuilder extends Builder<ContainerConfig> {
     ContainerConfigBuilder name(String name);
 
     ContainerConfigBuilder image(String Name);

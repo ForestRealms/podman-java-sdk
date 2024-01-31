@@ -2,6 +2,6 @@ package org.containerdesktop.PodmanInterface.Builder;
 
 import java.net.SocketException;
 
-public interface Buildable<T> {
+public interface Builder<T> {
     T build() throws SocketException;
 }

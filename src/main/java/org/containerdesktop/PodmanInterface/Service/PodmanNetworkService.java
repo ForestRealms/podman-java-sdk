@@ -34,7 +34,6 @@ public class PodmanNetworkService implements NetworkService{
                 .url(baseURL + "/libpod/networks/json")
                 .build();
         try (Response response = this.okHttpClient.newCall(request).execute()) {
-            assert response.body() != null;
              networks = JSONArray.parseArray(response.body().string()).stream()
                     .map(JSONObject.class::cast)
                     .map(Network::parse)
@@ -78,7 +77,7 @@ public class PodmanNetworkService implements NetworkService{
     }
 
     @Override
-    public void create(Config<Network> config) {
+    public String create(Config<Network> config) {
         Network network = config.getInstance();
         List<JSONObject> subnet0 = new ArrayList<>();
         for (Network.Subnet subnet : network.getSubnets()) {
@@ -95,7 +94,7 @@ public class PodmanNetworkService implements NetworkService{
         r.put("data", data);
 
         Request request = new Request.Builder()
-                .post(RequestBody.create(MediaType.parse("application/json"), r.toJSONString()))
+                .post(RequestBody.create(r.toJSONString(), MediaType.parse("application/json")))
                 .url(baseURL + "/networks/create")
                 .build();
 
@@ -103,13 +102,17 @@ public class PodmanNetworkService implements NetworkService{
         try (Response response = okHttpClient.newCall(request).execute()) {
             responseBody = response.body();
             String s = responseBody.string();
-            switch (InteractiveException.getCauseMessageFromResponse(s)) {
-                case "network already exists":
-                    throw new NetworkAlreadyExists("networkAlreadyExists",
-                            InteractiveException.getErrorMessageFromResponse(s), network.getName());
-                case null, default:
-                    throw new InternalServerError("internalServerError", InteractiveException.getErrorMessageFromResponse(s));
+            if (response.code() == 500) {
+                switch (InteractiveException.getCauseMessageFromResponse(s)) {
+                                case "network already exists":
+                                    throw new NetworkAlreadyExists("networkAlreadyExists",
+                                            InteractiveException.getErrorMessageFromResponse(s), network.getName());
+                                case null, default:
+                                    throw new InternalServerError("internalServerError", InteractiveException.getErrorMessageFromResponse(s));
+                            }
             }
+
+            return JSONObject.parseObject(s).getString("Id");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -119,6 +122,27 @@ public class PodmanNetworkService implements NetworkService{
 
     @Override
     public void delete(String name) {
+        Request request = new Request.Builder()
+                .delete()
+                .url(baseURL + "/networks/" + name)
+                .build();
 
+        ResponseBody responseBody;
+        try (Response response = okHttpClient.newCall(request).execute()) {
+            responseBody = response.body();
+            int code = response.code();
+            String s = responseBody.string();
+            switch (code) {
+                case 404:
+                    throw new NoSuchNetworkException("noSuchNetwork", InteractiveException.getErrorMessageFromResponse(s), name);
+                case 500:
+                    throw new InternalServerError("internalServerError", InteractiveException.getErrorMessageFromResponse(s));
+                default:
+                    break;
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
