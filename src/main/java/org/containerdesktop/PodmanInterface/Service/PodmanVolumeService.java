@@ -124,6 +124,33 @@ public class PodmanVolumeService implements VolumeService {
 
     @Override
     public Volume get(String name) {
+        Request request;
+        if (compat) {
+            request = new Request.Builder()
+                    .get()
+                    .url(baseURL + "/volumes/" + name)
+                    .build();
+        }else {
+            request = new Request.Builder()
+                    .get()
+                    .url(baseURL + "/volumes/" + name + "/json")
+                    .build();
+        }
+        try (Response response = this.okHttpClient.newCall(request).execute()) {
+            ResponseBody responseBody = response.body();
+            int code = response.code();
+            String s = responseBody.string();
+            switch (code) {
+                case 200:
+                    return JSONObject.parseObject(s).to(Volume::parse);
+                case 404:
+                    throw new NoSuchVolumeException("noSuchVolumeException", InteractiveException.getErrorMessageFromResponse(s), name, null);
+                case 500:
+                    throw new InternalServerError("internalServerError", InteractiveException.getErrorMessageFromResponse(s));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 
