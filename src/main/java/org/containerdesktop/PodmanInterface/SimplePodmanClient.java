@@ -14,14 +14,16 @@ public class SimplePodmanClient implements PodmanClient{
     private String socket;
     private OkHttpClient client;
     private String baseURL;
+    private boolean compat;
 
-    public SimplePodmanClient(String socket, String baseURL) throws SocketException {
+    public SimplePodmanClient(String socket, String baseURL, boolean compat) throws SocketException {
         this.socket = socket;
         this.client = new OkHttpClient.Builder()
                 .socketFactory(new AFSocketFactory.FixedAddressSocketFactory(AFUNIXSocketAddress.of(new File(this.socket))))
                 .callTimeout(Duration.ofMinutes(1))
                 .build();
         this.baseURL = baseURL;
+        this.compat = compat;
     }
 
     @Override
@@ -37,5 +39,10 @@ public class SimplePodmanClient implements PodmanClient{
     @Override
     public ImageService image() {
         return new PodmanImageService(this.client, this.baseURL);
+    }
+
+    @Override
+    public VolumeService volume() {
+        return new PodmanVolumeService(this.client, this.baseURL, this.compat);
     }
 }

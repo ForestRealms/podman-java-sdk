@@ -31,7 +31,7 @@ public class PodmanNetworkService implements NetworkService{
         List<Network> networks;
         Request request = new Request.Builder()
                 .get()
-                .url(baseURL + "/libpod/networks/json")
+                .url(baseURL + "/networks/json")
                 .build();
         try (Response response = this.okHttpClient.newCall(request).execute()) {
              networks = JSONArray.parseArray(response.body().string()).stream()

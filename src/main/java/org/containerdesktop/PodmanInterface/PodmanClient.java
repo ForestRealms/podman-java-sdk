@@ -3,6 +3,7 @@ package org.containerdesktop.PodmanInterface;
 import org.containerdesktop.PodmanInterface.Service.ContainerService;
 import org.containerdesktop.PodmanInterface.Service.ImageService;
 import org.containerdesktop.PodmanInterface.Service.NetworkService;
+import org.containerdesktop.PodmanInterface.Service.VolumeService;
 
 import java.net.SocketException;
 
@@ -11,6 +12,7 @@ public interface PodmanClient {
 
     ContainerService container();
     ImageService image();
+    VolumeService volume();
 
     class Builder implements org.containerdesktop.PodmanInterface.Builder.Builder<PodmanClient> {
 
@@ -47,7 +49,7 @@ public interface PodmanClient {
             if (!compat) {
                 libpod = "/libpod";
             }
-            return new SimplePodmanClient(this.socket, "http://" + this.hostAddr + "/v" + this.version + libpod);
+            return new SimplePodmanClient(this.socket, "http://" + this.hostAddr + "/v" + this.version + libpod, this.compat);
         }
     }
 
