@@ -1,7 +1,7 @@
-import org.containerdesktop.PodmanInterface.Builder.DefaultNetworkConfigBuilder;
-import org.containerdesktop.PodmanInterface.Entity.Network;
-import org.containerdesktop.PodmanInterface.Exception.NoSuchNetworkException;
-import org.containerdesktop.PodmanInterface.PodmanClient;
+import org.containerdesktop.podmansdk.Builder.DefaultNetworkConfigBuilder;
+import org.containerdesktop.podmansdk.Entity.Network;
+import org.containerdesktop.podmansdk.Exception.NoSuchNetworkException;
+import org.containerdesktop.podmansdk.PodmanClient;
 import org.junit.jupiter.api.*;
 
 
