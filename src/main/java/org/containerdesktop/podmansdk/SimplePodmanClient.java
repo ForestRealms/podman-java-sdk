@@ -33,7 +33,7 @@ public class SimplePodmanClient implements PodmanClient{
 
     @Override
     public ContainerService container() {
-        return null;
+        return new PodmanContainerService(this.client, this.baseURL);
     }
 
     @Override
