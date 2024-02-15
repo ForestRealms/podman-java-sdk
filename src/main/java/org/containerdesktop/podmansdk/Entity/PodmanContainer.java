@@ -4,119 +4,142 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class PodmanContainer implements Container{
+public record PodmanContainer(    List<String> commands,
+                                  Date createdDate,
+                                  Date createdAt,
+                                  boolean exited,
+                                  Date exitedAt,
+                                  int exitedCode,
+                                  String id, // 更改驼峰命名以匹配Java记录字段规范（通常是小写字母）
+                                  String imageName,
+                                  String imageId,
+                                  boolean infra,
+                                  boolean autoRemoved,
+                                  Map<String, String> labels,
+                                  List<String> mountPoints,
+                                  List<String> names,
+                                  Map<String, String> namespaces,
+                                  List<Network> networks,
+                                  int pid,
+                                  String pod,
+                                  String podName,
+                                  List<PortMapping> portMappings,
+                                  Date startedAt,
+                                  State state,
+                                  String status)
+        implements Container{
     @Override
     public boolean isAutoRemoved() {
-        return false;
+        return this.autoRemoved;
     }
 
     @Override
     public List<String> getCommands() {
-        return null;
+        return this.commands;
     }
 
     @Override
     public Date getCreatedDate() {
-        return null;
+        return this.createdDate;
     }
 
     @Override
     public Date getCreatedAt() {
-        return null;
+        return this.createdAt;
     }
 
     @Override
     public boolean isExited() {
-        return false;
+        return this.exited;
     }
 
     @Override
     public Date getExitedAt() {
-        return null;
+        return this.exitedAt;
     }
 
     @Override
     public int getExitedCode() {
-        return 0;
+        return this.exitedCode;
     }
 
     @Override
     public String getId() {
-        return null;
+        return this.id;
     }
 
     @Override
     public String getImageName() {
-        return null;
+        return this.imageName;
     }
 
     @Override
     public String getImageId() {
-        return null;
+        return this.imageId;
     }
 
     @Override
     public boolean isInfra() {
-        return false;
+        return this.infra;
     }
 
     @Override
     public Map<String, String> getLabels() {
-        return null;
+        return this.labels;
     }
 
     @Override
     public List<String> getMountPoints() {
-        return null;
+        return this.mountPoints;
     }
 
     @Override
     public List<String> getNames() {
-        return null;
+        return this.names;
     }
 
     @Override
     public Map<String, String> getNamespaces() {
-        return null;
+        return this.namespaces;
     }
 
     @Override
     public List<Network> getNetworks() {
-        return null;
+        return this.networks;
     }
 
     @Override
     public int getPID() {
-        return 0;
+        return this.pid;
     }
 
     @Override
     public String getPod() {
-        return null;
+        return this.pod;
     }
 
     @Override
     public String getPodName() {
-        return null;
+        return this.podName;
     }
 
     @Override
     public List<PortMapping> getPortMappings() {
-        return null;
+        return this.portMappings;
     }
 
     @Override
     public Date getStartedAt() {
-        return null;
+        return this.startedAt;
     }
 
     @Override
     public State getState() {
-        return null;
+        return this.state;
     }
 
     @Override
     public String getStatus() {
-        return null;
+        return this.status;
     }
 }

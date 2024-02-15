@@ -2,6 +2,7 @@ package org.containerdesktop.podmansdk.Configuration;
 
 import org.containerdesktop.podmansdk.Entity.Container;
 import org.containerdesktop.podmansdk.Entity.MessageKey;
+import org.containerdesktop.podmansdk.Entity.PodmanContainer;
 import org.containerdesktop.podmansdk.Exception.DuplicateEntryException;
 import org.containerdesktop.podmansdk.Exception.DuplicateVolumePathException;
 
